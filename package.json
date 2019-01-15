@@ -1,0 +1,21 @@
+{
+  "name": "vkm",
+  "version": "1.0.0",
+  "dependencies": {
+    "bluebird": "2.9.30",
+    "doctest": "0.8.0",
+    "express": "4.12.4",
+    "multer": "0.1.8",
+    "node-xlsx": "0.6.0",
+    "ramda": "0.15.1",
+    "request-promise": "0.4.2",
+    "streamifier": "0.1.1",
+    "bower": "1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "node.exe node_modules/bower/bin/bower install",
+    "start": "node --harmony server.js",
+    "test": "doctest --nodejs --harmony --module commonjs lib/convert.js"
+  }
+}

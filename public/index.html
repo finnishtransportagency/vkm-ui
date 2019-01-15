@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Viitekehysmuunnin</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Viitekehysmuunnin</h1>
+
+      <p class="lead">Muunna koordinaatteja, tieosoitteita ja katuosoitteita keskenään.</p>
+
+      <div class="well">
+        <h2 class="h4">1. Syötä muunnettavat tiedot alla olevaan Excel-tiedostopohjaan.</h2>
+        <p>Tiedostopohjat:</p>
+        <div>
+          <a class="btn btn-default" href="excel_templates/koordinaateilla.xlsx">
+            <span class="glyphicon glyphicon-file"></span>&nbsp;Koordinaateille
+          </a>
+          <a class="btn btn-default" href="excel_templates/tieosoitteilla.xlsx">
+            <span class="glyphicon glyphicon-file"></span>&nbsp;Tieosoitteille
+          </a>
+          <a class="btn btn-default" href="excel_templates/tieosoitteilla_ajanhetki.xlsx">
+            <span class="glyphicon glyphicon-file"></span>&nbsp;Tieosoitteille ajanhetkellä
+          </a>
+          <a class="btn btn-default" href="excel_templates/valikohtaisella.xlsx">
+            <span class="glyphicon glyphicon-file"></span>&nbsp;Tieosoiteväleille
+          </a>
+        </div>
+      </div>
+
+      <div class="well">
+        <h2 class="h4">2. Valitse muunnettava tiedosto ja lähetä se.</h2>
+        <form method="post" action="http://localhost:3000/upload/" id="upload" name="upload" enctype="multipart/form-data">
+          <p><input type="file" name="file" required /></p>
+          <div class="input-group">
+            <input type="submit" class="btn btn-default btn-large" value="Lähetä" />
+          </div>
+        </form>
+      </div>
+
+      <div class="well">
+        <h2 class="h4">3. Muunnin palauttaa muunnetut tiedot uutena Excel-tiedostona.</h2>
+        <div id="ready" class="hidden">
+          <p>Muunnos valmis.</p>
+          <p class="errors"></p>
+          <a class="btn btn-default" href="#" id="download">
+            <span class="glyphicon glyphicon-file"></span>&nbsp;Muunnetut tiedot
+          </a>
+        </div>
+        <div class="alert alert-info hidden" role="alert" id="loading">
+          <span class="glyphicon glyphicon-refresh spinning"></span>&nbsp;
+          Muunnos käynnissä.
+        </div>
+        <div class="alert alert-danger hidden" role="alert" id="validation_error">
+          Muunnos epäonnistui. Tarkista syöttämäsi tiedot.
+          <p class="errors"></p>
+        </div>
+        <div class="alert alert-danger hidden" role="alert" id="error">
+          Muunnos epäonnistui. Järjestelmässä virhe.
+        </div>
+      </div>
+
+      <div class="well">
+        <h3>Käyttöohje</h3>
+			<p>Viitekehysmuuntimella voi muuntaa</p>
+			<ul>
+			<li>Koordinaatit tieosoitteiksi ja katuosoitteiksi
+			<li>Tieosoitteet koordinaateiksi ja katuosoitteiksi
+			<li>Tieosoitteet toisen ajanhetken tieosoitteiksi
+			<li>Tieosoitevälit niiden alku- ja loppupisteiden koordinaateiksi
+			</ul>
+
+			<p>Kaksi ensin mainittua palauttaa myös tiedon siitä, mihin kuntaan, Elyyn ja urakka-alueeseen
+			sijainti kuuluu.</p>
+
+			<p>Muunnettavat tiedot syötetään Excel-tiedostopohjaan, joka lähetetään sovellukselle. Se valitsee
+			muunnostyypin automaattisesti muunnettavan tiedoston sarakkeiden perusteella ja
+			palauttaa muunnetun tiedoston, johon on lisätty muunnoksen lopputuloksen sisältävät sarakkeet. 
+			Muuntimen palauttamaa taulukkoa ei kannata lähettää uudestaan, siirrä tiedot Viitekehysmuuntimesta 
+			ladattuun tiedostoon.</p>
+
+			<p>Excel-pohjaan ei saa lisätä uusia sarakkeita, eikä sarakkeiden järjestystä saa muuttaa.
+			Tiedostossa saa olla vain yksi taulukko (eli välilehti). Tiedoston nimessä ei saa olla välilyöntejä.</p>
+
+			<p>Muunnoksissa käytetään ETRS-TM35FIN-tasokoordinaatteja. X on itäkoordinaatti ja Y pohjoiskoordinaatti.
+			Muunnettavien tietojen desimaalierottimena voi olla pilkku tai piste.</p>
+			
+			<p>Käytössä havaitut muunnosten enimmäisrivimäärät:</p>
+			<ul>
+			<li>Tieosoitteille ajanhetki enintään 50 000 riviä.
+			<li>Koordinaateille enintään 5000 riviä.
+			</ul>
+
+			<h4>Muunnoskohtaisia ohjeita</h4>
+			
+			<u>Koordinaattien muuntaminen</u>
+
+			<p>Munnoksessa käytetään 500 metrin hakusädettä. Sovellus palauttaa sen sisältä löytyvän
+			lähimmän tieosoitteen ja katuosoitteen. Ne voivat sijaita eri kohdissa.</p>
+
+			<u>Tieosoitteiden muuntaminen toisen ajanhetken tieosoitteiksi</u>
+
+			<p><i>Tilannepvm</i> on se päivämäärä, jonka tilanteessa muunnettava tieosoite on ja <i>kohdepvm</i> se
+			päivämäärä, jonka mukainen tieosoite muunnoksesta saadaan.</p>
+			
+			<p>Ajanhetkimuunnoksessa käytetään vain ensimmäisen rivin päivämääriä, vaikka kaikille riveille pitää syöttää jotkut validit päivämäärät.</p>
+
+			<u>Tieosoitevälien muuntaminen</u>
+
+			<p>Alku- ja loppupisteen voi antaa kummassa järjestyksessä tahansa.</p>
+      </div>
+
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
