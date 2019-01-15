@@ -1,49 +1,25 @@
-<<<<<<< HEAD
-# vkm-ui
-
-Käyttöliittymä (UI) uudelle viitekehysmuuntimelle (vkm-api:lle).
+# Käyttöliittymä (UI) uudelle viitekehysmuuntimelle (vkm-api:lle).
 
 Käyttöliittymässä käyttäjä voi antaa muunnettavia sijaintitietoja excel-taulukoissa. UI käyttää vkm-apia tietojen muuntamiseen, ja antaa tulokset excel-taulukkoina.
 
 Käyttöliittymäkoodin pohjana käytetään koodia, joka on kehitetty vanhan vkm:n UI:ta varten.
 
-Ensimmäinen versio uuden vkm-ui:n koodista tuodaan tähän repositoryyn, kun se on testattu paikallisesti.
-=======
-# KÃ¤yttÃ¶liittymÃ¤ viitekehysmuuntimeen
+## Kehitysympäristön pystytys
 
-## YmpÃ¤ristÃ¶n pystytys
+1. Asenna node.js (https://nodejs.org/) (versio 0.12.7 tai uudempi)
 
-1. [Asenna node.js](https://nodejs.org/) (versio 0.12.7 tai uudempi)
+2. Kloonaa tämä vkm-ui-repo (git clone https://github.com/finnishtransportagency/vkm-ui.git)
 
-1. Kloonaa vkm-repo
-
-  ```
-  git clone https://github.com/finnishtransportagency/vkm.git
-  ```
-
-1. Hae ja asenna projektin tarvitsemat riippuvuudet hakemistoon, johon projekti on kloonattu
-
-  ```
-  cd vkm
-  npm install
-  ```
+3. Hae ja asenna projektin tarvitsemat riippuvuudet hakemistoon, johon projekti on kloonattu: npm install
 
 ## Ajaminen
 
-Sovellus kÃ¤ynnistetÃ¤Ã¤n komennolla:
+Sovellus käynnistetään komennolla: npm start
 
-  ```
-  npm start
-  ```
+Sovellus käyttää oletusarvoisesti porttia 3000. Porttia voi vaihtaa asettamalla arvo ympäristömuuttujaan `VKM_PORT`.
 
-Sovellus kÃ¤yttÃ¤Ã¤ oletusarvoisesti porttia 3000. KÃ¤ytettÃ¤vÃ¤Ã¤ porttia voi vaihtaa asettamalla arvo ympÃ¤ristÃ¶muuttujaan `VKM_PORT`.
+Sovellus ottaa oletusarvoisesti viitekehysmuuntimen rajapintaan yhteyttä osoitteeseen http://10.129.65.37:8997. Rajapinnan osoitetta voi vaihtaa ympäristömuuttujalla `VKM_API_URL`.
 
-Sovellus ottaa oletusarvoisesti viitekehysmuuntimen rajapintaan yhteyttÃ¤ osoitteeseen http://10.129.65.37:8997. Rajapinnan osoitetta voi vaihtaa ympÃ¤ristÃ¶muuttujalla `VKM_API_URL`.
+Esimerkki ympäristömuuttujien käytöstä:
 
-Esimerkki ympÃ¤ristÃ¶muuttujien kÃ¤ytÃ¶stÃ¤:
-
-  ```
-  VKM_PORT=3000 VKM_API_URL=http://10.129.65.37:8997 npm start
-  ```
-
->>>>>>> sitowise
+VKM_PORT=3000 VKM_API_URL=http://10.129.65.37:8997 npm start
