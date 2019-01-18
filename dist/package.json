@@ -1,5 +1,6 @@
 {
   "name": "vkm",
+  "main": "server.js",
   "version": "1.0.0",
   "dependencies": {
     "bluebird": "2.9.30",
@@ -12,10 +13,13 @@
     "streamifier": "0.1.1",
     "bower": "1.5.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
+  },
   "scripts": {
     "postinstall": "node.exe node_modules/bower/bin/bower install",
     "start": "node --harmony server.js",
-    "test": "doctest --nodejs --harmony --module commonjs lib/convert.js"
+    "test": "doctest --nodejs --harmony --module commonjs lib/convert.js",
+    "build": "webpack"
   }
 }
