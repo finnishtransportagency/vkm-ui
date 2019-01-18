@@ -178,7 +178,7 @@ pipeline {
 
                                 "--report NONE",
 
-                                "--variable URL:${it}/vkm-ui",
+                                "--variable URL:${it}/ptpapp-vkm-ui",
 
                                 "src/test"
 
@@ -208,7 +208,7 @@ pipeline {
 
                                 "--report NONE",
 
-                                "--variable URL:${it}/vkm-ui",
+                                "--variable URL:${it}/ptpapp-vkm-ui",
 
                                 "src/test"
 
@@ -240,7 +240,7 @@ pipeline {
 
                                 "--variable PROXY:${http_proxy}",
 
-                                "--variable URL:${it}/vkm-ui",
+                                "--variable URL:${it}/ptpapp-vkm-ui",
 
                                 "src/test"
 

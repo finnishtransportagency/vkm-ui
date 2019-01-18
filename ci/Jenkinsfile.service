@@ -291,6 +291,77 @@ pipeline {
 
         }
 
+	stage("Docker") {
+
+            when {
+
+                beforeAgent true
+
+                expression {
+
+                    get_environment()?.trim() && params.action.equals("service-deploy-springboot")
+
+                }
+
+            }
+
+            steps {
+
+                sh "cp /data1/ci/{maven,node}/* ci/confs/"
+
+                script {
+
+                    def jenkins_uid = sh(returnStdout: true, script: "id -u").trim()
+
+                    def build_args = [
+
+                        "--build-arg http_proxy=${http_proxy}",
+
+                        "--build-arg https_proxy=${http_proxy}",
+
+                        "--build-arg no_proxy=${no_proxy}",
+
+                        "--build-arg JENKINS_UID=${jenkins_uid}"
+
+                    ].join(" ")
+
+                    docker.build(
+
+                        "ptpapp-vkmui-maven",
+
+                        "${build_args} -f ci/Dockerfile.maven ci"
+
+                    )
+
+                    docker.build(
+
+                        "ptpapp-drreport-node",
+
+                        "${build_args} -f ci/Dockerfile.node ci"
+
+                    )
+
+                }
+            }
+
+            post {
+
+                failure {
+
+                    slackSend(
+
+                        color: "danger",
+
+                        message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
+
+                    )
+
+                }
+
+            }
+
+	}
+
         stage("Build") {
 
             when {
