@@ -83,7 +83,7 @@ pipeline {
 
                 script {
 
-                    def package_json = readJSON file: "dist/package.json"
+                    def package_json = readJSON file: "dist\package.json"
 
                     def target_environment = get_environment()         
 
