@@ -277,7 +277,7 @@ pipeline {
 
                 expression {
 
-                    get_environment()?.trim() && params.action.equals("nodejs")
+                    get_environment()?.trim() && params.action.equals("service-deploy-nodejs")
 
                 }
 
