@@ -285,7 +285,7 @@ pipeline {
 
             steps {
 
-                sh "cp /ci/{maven}/* ci/confs/"
+                sh "cp /data1/ci/maven/* ci/confs/"
 
                 script {
 
