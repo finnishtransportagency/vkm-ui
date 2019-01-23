@@ -82,7 +82,6 @@ pipeline {
             steps {
 
                 script {
-		sh 'ls -LR'
 
                     def package_json = readJSON file: "dist/package.json"
 
@@ -457,7 +456,7 @@ pipeline {
 
                 docker {
 
-                    image "ptpapp-vkm-ui-maven"
+                    image "ptpapp-vkmui-maven"
 
                     reuseNode true
 
