@@ -239,9 +239,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                aborted {/*
+                aborted {
 
                     slackSend(
 
@@ -249,11 +249,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted because acknowledgement timeout exceeded or user action!"
 
-                    )*/
+                    )
 
                 }
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -261,11 +261,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -322,9 +322,9 @@ pipeline {
                 }
             }
 
-            post {
+            /*post {
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -332,11 +332,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
 	}
 
@@ -366,9 +366,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -376,11 +376,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -420,9 +420,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                aborted {/*
+                aborted {
 
                     slackSend(
 
@@ -430,11 +430,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted because confirmation timeout exceeded or user action!"
 
-                    )*/
+                    )
 
                 }
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -442,11 +442,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -482,9 +482,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -492,11 +492,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -520,9 +520,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -530,11 +530,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -564,9 +564,9 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
-                failure {/*
+                failure {
 
                     slackSend(
 
@@ -574,11 +574,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT} - Stage ${STAGE_NAME} failure!\nCheck <${BUILD_URL}console|console>!"
 
-                    )*/
+                    )
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -586,9 +586,9 @@ pipeline {
 
     post {
 
-        always {/*
+        always {
 
-            slackSend(
+            /*slackSend(
 
                 color: currentBuild.currentResult.equals("SUCCESS") ? "good" : "danger",
 
