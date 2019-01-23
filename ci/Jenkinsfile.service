@@ -82,8 +82,9 @@ pipeline {
             steps {
 
                 script {
+		sh 'ls'
 
-                    def package_json = readJSON file: "data/package.json"
+                    def package_json = readJSON file: "data/dist/package.json"
 
                     def target_environment = get_environment()         
 
@@ -107,9 +108,9 @@ pipeline {
 
                     ]
 
-		STAGE_BUILD_ZIP_DIR = “dist”
+		STAGE_BUILD_ZIP_DIR = "dist"
 
-		STAGE_BUILD_ZIP_GLOB = “**”
+		STAGE_BUILD_ZIP_GLOB = "**"
 
                     STAGE_BUILD_ZIP_ZIPFILE = filename
 
@@ -514,7 +515,7 @@ pipeline {
 
             steps {
 
-		echo “ansible”
+		echo "ansible"
 
                 //ansiblePlaybook(STAGE_ANSIBLE_PARAMETERS)
 
