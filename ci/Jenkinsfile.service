@@ -305,7 +305,7 @@ pipeline {
 
                     docker.build(
 
-                        "ptpapp-vkmui-maven",
+                        "ptpapp-vkm-ui-maven",
 
                         "${build_args} -f ci/Dockerfile.maven ci"
 
@@ -456,7 +456,7 @@ pipeline {
 
                 docker {
 
-                    image "ptpapp-vkmui-maven"
+                    image "ptpapp-vkm-ui-maven"
 
                     reuseNode true
 
