@@ -277,7 +277,7 @@ pipeline {
 
                 expression {
 
-                    get_environment()?.trim() && params.action.equals("service-deploy-springboot")
+                    get_environment()?.trim() && params.action.equals("nodejs")
 
                 }
 
@@ -285,7 +285,7 @@ pipeline {
 
             steps {
 
-                sh "cp /data1/ci/{maven,node}/* ci/confs/"
+                sh "cp /data1/ci/{maven}/* ci/confs/"
 
                 script {
 
@@ -308,14 +308,6 @@ pipeline {
                         "ptpapp-vkm-ui-maven",
 
                         "${build_args} -f ci/Dockerfile.maven ci"
-
-                    )
-
-                    docker.build(
-
-                        "ptpapp-drreport-node",
-
-                        "${build_args} -f ci/Dockerfile.node ci"
 
                     )
 
