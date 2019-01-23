@@ -219,7 +219,7 @@ pipeline {
 
             }
 
-            steps {
+            steps {/*
 
                 slackSend(
 
@@ -227,7 +227,7 @@ pipeline {
 
                     message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} requires acknowledgement! Visit <${RUN_DISPLAY_URL}|here> and verify!"
 
-                )
+                )*/
 
                 input(
 
@@ -241,7 +241,7 @@ pipeline {
 
             post {
 
-                aborted {
+                aborted {/*
 
                     slackSend(
 
@@ -249,11 +249,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted because acknowledgement timeout exceeded or user action!"
 
-                    )
+                    )*/
 
                 }
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -261,7 +261,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -324,7 +324,7 @@ pipeline {
 
             post {
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -332,7 +332,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -368,7 +368,7 @@ pipeline {
 
             post {
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -376,7 +376,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -406,7 +406,7 @@ pipeline {
 
             }
 
-            steps {
+            steps {/*
 
                 slackSend(
 
@@ -414,7 +414,7 @@ pipeline {
 
                     message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} requires confirmation! Visit <${RUN_DISPLAY_URL}|here> and verify!"
 
-                )
+                )*/
 
                 input STAGE_CONFIRM_TEXT
 
@@ -422,7 +422,7 @@ pipeline {
 
             post {
 
-                aborted {
+                aborted {/*
 
                     slackSend(
 
@@ -430,11 +430,11 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} aborted because confirmation timeout exceeded or user action!"
 
-                    )
+                    )*/
 
                 }
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -442,7 +442,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -484,7 +484,7 @@ pipeline {
 
             post {
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -492,7 +492,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -522,7 +522,7 @@ pipeline {
 
             post {
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -530,7 +530,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -566,7 +566,7 @@ pipeline {
 
             post {
 
-                failure {
+                failure {/*
 
                     slackSend(
 
@@ -574,7 +574,7 @@ pipeline {
 
                         message: "${NOTIFY_SLACK_SUBJECT} - Stage ${STAGE_NAME} failure!\nCheck <${BUILD_URL}console|console>!"
 
-                    )
+                    )*/
 
                 }
 
@@ -586,7 +586,7 @@ pipeline {
 
     post {
 
-        always {
+        always {/*
 
             slackSend(
 
@@ -594,7 +594,7 @@ pipeline {
 
                 message: "${NOTIFY_SLACK_SUBJECT}\nJob ${currentBuild.currentResult}! More info <${BUILD_URL}|here>."
 
-            )
+            )*/
 
             deleteDir()
 
