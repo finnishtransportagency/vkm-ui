@@ -82,7 +82,7 @@ pipeline {
             steps {
 
                 script {
-		sh 'ls dist'
+		sh 'ls -LR'
 
                     def package_json = readJSON file: "data/dist/package.json"
 
