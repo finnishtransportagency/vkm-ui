@@ -43,7 +43,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: "25"))
 
         disableConcurrentBuilds()
-
     }
 
     parameters {
@@ -86,9 +85,7 @@ pipeline {
 
                     def package_json = readJSON file: "dist/package.json"
 
-                    def target_environment = get_environment()
-
-                    
+                    def target_environment = get_environment()         
 
                     def artifact_id = package_json.name
 
@@ -109,27 +106,10 @@ pipeline {
                         choice(choices: params.action, description: "Action", name: "action")
 
                     ]
-		 STAGE_BUILD_ZIP_GLOB = [
 
-                        "dist/**"
+		STAGE_BUILD_ZIP_DIR = “dist”
 
-                    ].join(",")
-		/*
-
-                    STAGE_BUILD_ZIP_GLOB = [
-
-                        "excel_templates/**",
-
-                        "lib/**",
-
-                        "public/**",
-
-                        "*.json",
-
-                        "*.js"
-
-                    ].join(",")
-		*/
+		STAGE_BUILD_ZIP_GLOB = “**”
 
                     STAGE_BUILD_ZIP_ZIPFILE = filename
 
@@ -168,8 +148,6 @@ pipeline {
                         tags: params.action
 
                     ]
-
-                    
 
                     def ansible_extravars = [
 
@@ -377,6 +355,8 @@ pipeline {
             steps {
 
                 zip(
+		    
+		    dir: STAGE_BUILD_ZIP_DIR,
 
                     glob: STAGE_BUILD_ZIP_GLOB,
 
@@ -520,10 +500,6 @@ pipeline {
 
         }
 
-	stage("Ansible") {
-		echo "ansible"
-	}
-/*
         stage("Ansible") {
 
             when {
@@ -538,7 +514,9 @@ pipeline {
 
             steps {
 
-                ansiblePlaybook(STAGE_ANSIBLE_PARAMETERS)
+		echo “ansible”
+
+                //ansiblePlaybook(STAGE_ANSIBLE_PARAMETERS)
 
             }
 
@@ -559,7 +537,7 @@ pipeline {
             }
 
         }
-*/
+
         stage("Test") {
 
             when {
