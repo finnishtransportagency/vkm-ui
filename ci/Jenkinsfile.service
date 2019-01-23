@@ -546,7 +546,7 @@ pipeline {
 
                 build(
 
-                    job: "ptpapp/vkm-api-ui/test/${BRANCH_NAME}",
+                    job: "ptpapp/vkm-ui/test/${BRANCH_NAME}",
 
                     propagate: false,
 
