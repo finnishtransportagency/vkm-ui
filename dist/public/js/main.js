@@ -65,7 +65,6 @@ $(function() {
   }
 
   $("#upload").on("submit", function(event) {
-	  console.log("On server");
     event.preventDefault();
 
     handlePending();
