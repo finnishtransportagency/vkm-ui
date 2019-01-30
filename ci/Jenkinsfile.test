@@ -344,7 +344,7 @@ pipeline {
 
             }
 
-            post {
+            /*post {
 
                 failure {
 
@@ -358,7 +358,7 @@ pipeline {
 
                 }
 
-            }
+            }*/
 
         }
 
@@ -412,7 +412,7 @@ pipeline {
 
                 }
 
-                failure {
+                /*failure {
 
                     slackSend(
 
@@ -422,7 +422,7 @@ pipeline {
 
                     )
 
-                }
+                }*/
 
             }
 
@@ -438,7 +438,7 @@ pipeline {
 
         }
 
-        unstable {
+        /*unstable {
 
             slackSend(
 
@@ -448,7 +448,7 @@ pipeline {
 
             )
 
-        }
+        }*/
 
     }
 
