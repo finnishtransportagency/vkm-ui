@@ -58,6 +58,7 @@ exports.convert = function(buffer) {
 
 
 function parseInput(buffer) {
+	console.log("In converter, parse");
   const parse = Promise.method(buffer => {
     const worksheet = xlsx.parse(buffer)[0];
     const table = worksheet.data;
