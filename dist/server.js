@@ -12,6 +12,8 @@ const app = express();
 const port = process.env.VKM_PORT || 3000;
 const server = app.listen(port, () => console.log("Started at port " + port));
 
+console.log("On server");
+
 app.locals.files = {};
 
 app.use("/", express.static("public"));
@@ -21,7 +23,6 @@ app.use("/excel_templates", express.static("excel_templates"));
 app.post("/upload", multer({
   inMemory: true,
   onFileUploadComplete: function(file, req, res) {
-	  console.log("File uploaded");
     const promisedFile = converter.convert(file.buffer)
       .then(data => ({
         valid: true,
