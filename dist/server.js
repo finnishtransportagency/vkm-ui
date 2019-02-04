@@ -21,6 +21,7 @@ app.use("/excel_templates", express.static("excel_templates"));
 app.post("/upload", multer({
   inMemory: true,
   onFileUploadComplete: function(file, req, res) {
+	  console.log("File uploaded");
     const promisedFile = converter.convert(file.buffer)
       .then(data => ({
         valid: true,
