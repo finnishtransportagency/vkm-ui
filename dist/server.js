@@ -12,7 +12,7 @@ const app = express();
 const port = process.env.VKM_PORT || 3000;
 const server = app.listen(port, () => console.log("Started at port " + port));
 
-console.log("On server");
+console.log("Message from the server");
 
 app.locals.files = {};
 

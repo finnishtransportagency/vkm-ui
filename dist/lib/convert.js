@@ -49,7 +49,6 @@ const MISSING_VALUE_ERROR = "Kohdetta ei löytynyt";
 const CONCURRENT_REQUEST_LIMIT = 5;
 
 exports.convert = function(buffer) {
-	console.log("In converter, main");
   return parseInput(buffer)
     .then(validateValues)
     .then(convertValues)
@@ -58,7 +57,6 @@ exports.convert = function(buffer) {
 
 
 function parseInput(buffer) {
-	console.log("In converter, parse");
   const parse = Promise.method(buffer => {
     const worksheet = xlsx.parse(buffer)[0];
     const table = worksheet.data;
