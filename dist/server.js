@@ -4,7 +4,7 @@ const streamifier = require("streamifier");
 const R = require("ramda");
 const Promise = require("bluebird");
 
-const converter = require("./lib/convert.js");
+const converter = require("lib/convert.js");
 
 const CACHE_EXPIRATION_TIMEOUT = 60 * 60 * 1000;
 
@@ -21,7 +21,6 @@ app.use("/excel_templates", express.static("excel_templates"));
 app.post("/upload", multer({
   inMemory: true,
   onFileUploadComplete: function(file, req, res) {
-	  console.log("Upload message");
     const promisedFile = converter.convert(file.buffer)
       .then(data => ({
         valid: true,
