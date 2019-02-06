@@ -214,6 +214,7 @@ function addRoadAddresses(values) {
 
 
 function addCoordinates(values) {
+	console.log("Message from addCoordinates");
 	const roadAddressData = (value) =>
     		httpGet(ROAD_ADDRESS_URL, R.pick(ROAD_ADDRESS_KEYS, value))
       		.then(response => R.merge(value, getXYFromResponse(response)));
@@ -258,6 +259,7 @@ function addRoadAddressesWDays(values) {
 
 
 function addStreetAddresses(values) {
+	console.log("Message from addStreetAddresses");
   const reverseGeocode = value => httpGet(REVERSE_GEOCODE_URL, R.pick(COORDINATE_KEYS, value));
   
   return Promise.map(values, reverseGeocode, { concurrency: CONCURRENT_REQUEST_LIMIT })
