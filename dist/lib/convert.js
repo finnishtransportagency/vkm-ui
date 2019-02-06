@@ -108,6 +108,7 @@ function convertValues(data) {
   };
   
   return resultByType[data.type](data.values).then(x => {
+	  console.log("Message from convertValues2");
     return R.assoc("values", x, data);
   });
 }
