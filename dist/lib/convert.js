@@ -58,6 +58,7 @@ exports.convert = function(buffer) {
 
 
 function parseInput(buffer) {
+	console.log("Message from parseInput");
   const parse = Promise.method(buffer => {
     const worksheet = xlsx.parse(buffer)[0];
     const table = worksheet.data;
@@ -69,11 +70,13 @@ function parseInput(buffer) {
 
 
 function validateValues(data) {
+	console.log("Message from validateValues");
   const values = data.values;
   const type = determineType(data.header);
   const valid = x => !R.any(R.isNil, R.flatten(R.map(R.values, x)));
   const requiredValues = type === "intervalRoadAddress" ? R.map(R.omit(OPTIONAL_INTERVAL_KEYS), values) : values;
 
+  
   if (valid(requiredValues)) {
     return R.merge(data, { type: type });
   } else {
@@ -95,6 +98,7 @@ function determineType(headerKeys) {
 
 
 function convertValues(data) {
+	console.log("Message from convertValues");
   const resultByType = {
     coordinate: values => addRoadAddresses(values).then(addStreetAddresses),
     roadAddress: values => addCoordinates(values).then(addStreetAddresses),
@@ -102,7 +106,7 @@ function convertValues(data) {
     intervalRoadAddress: values => addIntervalCoordinates(values),
     daysRoadAddress: values => addRoadAddressesWDays(values)
   };
-
+  
   return resultByType[data.type](data.values).then(x => {
     return R.assoc("values", x, data);
   });
@@ -110,6 +114,7 @@ function convertValues(data) {
 
 
 function buildOutput(data) {
+	 console.log("Message from buildOutput");
   const interval = data.type === "intervalRoadAddress";
   const bydays = data.type === "daysRoadAddress";
   var keys;
