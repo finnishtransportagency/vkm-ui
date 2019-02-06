@@ -21,6 +21,7 @@ app.use("/excel_templates", express.static("excel_templates"));
 app.post("/upload", multer({
   inMemory: true,
   onFileUploadComplete: function(file, req, res) {
+	  console.log("Message from upload");
     const promisedFile = converter.convert(file.buffer)
       .then(data => ({
         valid: true,
@@ -34,6 +35,7 @@ app.post("/upload", multer({
         return { valid: false };
       });
 
+    console.log("Message from upload2");
     app.locals.files[file.name] = promisedFile;
     res.end(file.name, "utf-8");
     promisedFile.delay(CACHE_EXPIRATION_TIMEOUT)
