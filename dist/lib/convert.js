@@ -49,6 +49,7 @@ const MISSING_VALUE_ERROR = "Kohdetta ei löytynyt";
 const CONCURRENT_REQUEST_LIMIT = 5;
 
 exports.convert = function(buffer) {
+	console.log("Message from convert");
   return parseInput(buffer)
     .then(validateValues)
     .then(convertValues)
