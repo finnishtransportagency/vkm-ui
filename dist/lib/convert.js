@@ -3,7 +3,7 @@ const rp = require("request-promise");
 const xlsx = require("node-xlsx");
 const R = require("ramda");
 
-const API_URL = "http://172.17.208.16:8085/http://kehitysjulkinen.vayla.fi/vkm-api";
+const API_URL = "http://localhost:8889/vkm-api";
 const VKM_URL = API_URL + "/muunnin";
 const GEOCODE_URL = API_URL + "/geocode";
 const REVERSE_GEOCODE_URL = API_URL + "/reversegeocode";
