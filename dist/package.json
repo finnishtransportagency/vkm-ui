@@ -21,5 +21,6 @@
     "start": "node --harmony server.js",
     "test": "doctest --nodejs --harmony --module commonjs lib/convert.js",
     "build": "webpack"
-  }
+  },
+  "proxy": "http://172.17.208.16:8085"
 }
