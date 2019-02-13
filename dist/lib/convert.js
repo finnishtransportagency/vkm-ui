@@ -45,6 +45,10 @@ const POINT_DAYS_KEYS = ROAD_ADDRESS_KEYS.concat(OTHER_DAYS_KEYS);
 const POINT_DAYS_KEYS_OUTPUT = ROAD_ADDRESS_KEYS.concat(OTHER_DAYS_KEYS).concat(ROAD_ADDRESS_KEYS_OUT);
 const OPTIONAL_INTERVAL_KEYS = ["ajoradat"];
 
+const REQUIRED_POINT_KEYS = COORDINATE_KEYS.concat(ROAD_ADDRESS_KEYS_OUTPUT);
+const REQUIRED_INTERVAL_KEYS = INTERVAL_KEYS;
+const REQUIRED_POINT_DAYS_KEYS = POINT_DAYS_KEYS_OUTPUT;
+
 const MISSING_VALUE_ERROR = "Kohdetta ei löytynyt";
 
 const CONCURRENT_REQUEST_LIMIT = 5;
@@ -113,6 +117,7 @@ function buildOutput(data) {
   const interval = data.type === "intervalRoadAddress";
   const bydays = data.type === "daysRoadAddress";
   const byRoadAddress = data.type === "roadAddress";
+  const byCoordinate = data.type === "coordinate";
   var keys;
   var headers;
 
@@ -131,6 +136,10 @@ function buildOutput(data) {
   }
 
   const values = data.values;
+  if (byCoordinate || bydays) {
+	  var valuesTemp = renameKeys({ ajorata: 'ajoradat' })(values[0]);
+	  values[0] = valuesTemp;
+  }
   const valuesOrderedByKeys = values.map(x => {
     const valueOrderedByKeys = keys.map(key => R.prop(key, x));
     return x.valid ? valueOrderedByKeys : valueOrderedByKeys.concat(x.error);
@@ -140,8 +149,6 @@ function buildOutput(data) {
   const headerRow = metadata.errors ? headers.concat(ERROR_HEADER) : headers;
   const table = [headerRow].concat(valuesOrderedByKeys);
   
-  
-
   return {
     xlsx: xlsx.build([{name: data.fileName, data: table }]),
     metadata: metadata
@@ -204,10 +211,10 @@ function headersToKeys(headerRow) {
 
 function addRoadAddresses(values) {
 	  const pointData = value => httpGet(XY_COORDINATE_URL, R.pick(COORDINATE_KEYS, value));
-	  
+	 
 	  return Promise.map(values, pointData, { concurrency: CONCURRENT_REQUEST_LIMIT })
 	    .map(R.pick(ROAD_ADDRESS_KEYS_OUTPUT.concat(OTHER_ADDRESS_KEYS)))
-	    .then(mergeAllWith(values));
+	    .then(mergeAllWith(values)).then(R.map(validate));
 }
 
 
@@ -243,19 +250,15 @@ function addRoadAddressesWDays(values) {
 	  }
 	  const historyConversion = (value) => httpGet(ROAD_ADDRESS_URL, R.pick(POINT_DAYS_KEYS, value)).then(function(response) {
 		      response = response[0];
-		      console.log(response);
 		      var renamed = renameKeys({ ajorata: 'ajorata_out', etaisyys: 'etaisyys_out', osa: 'osa_out', tie: 'tie_out' })(response);
-		      console.log(renamed);
 		      var valuesObject = values[0];
-		      console.log(valuesObject);
 		      var merged = R.merge(renamed, valuesObject);
-		      console.log(merged);
 		      return merged;
 	  		});
 	  
 	  return Promise.map(values, historyConversion, { concurrency: CONCURRENT_REQUEST_LIMIT })
 	    .map(R.pick(POINT_DAYS_KEYS_OUTPUT.concat(OTHER_ADDRESS_KEYS)))
-	    .then(mergeAllWith(values));
+	    .then(mergeAllWith(values)).then(R.map(validate));
 }
 
 
@@ -264,7 +267,7 @@ function addStreetAddresses(values) {
   
   return Promise.map(values, reverseGeocode, { concurrency: CONCURRENT_REQUEST_LIMIT })
     .map(R.pick(STREET_ADDRESS_KEYS_OUTPUT.concat(OTHER_ADDRESS_KEYS)))
-    .then(mergeAllWith(values));
+    .then(mergeAllWith(values)).then(R.map(validate));
 }
 
 
@@ -339,9 +342,13 @@ function mergeAllWith(xs) {
 
 function validate(x) {
   if (R.has("valid", x)) return x;
-  const validationStatus = x.palautusarvo === 1 ?
+  console.log(x.type);
+  const validationStatus = (!R.any(R.isNil, REQUIRED_POINT_KEYS)) || (!R.any(R.isNil, REQUIRED_INTERVAL_KEYS)) || (!R.any(R.isNil, REQUIRED_POINT_DAYS_KEYS)) ?
+  //const validationStatus = x.palautusarvo === 1 ?
     { valid: true } :
     { valid: false, error: x.virheteksti || MISSING_VALUE_ERROR };
+    
+    console.log(validationStatus);
     
   return R.merge(R.omit(EXTERNAL_ERROR_KEYS, x), validationStatus);
 }
@@ -370,6 +377,7 @@ const renameKeys = R.curry((keysMap, obj) => {
     return acc;
   }, {}, R.keys(obj));
 });
+
 
 
 /* Older code below
